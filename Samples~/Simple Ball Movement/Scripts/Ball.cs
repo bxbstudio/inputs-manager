@@ -15,8 +15,8 @@ namespace Utilities.Inputs.Samples
 		public float speed = 1f;
 		public float jumpIntensity = 1f;
 
-		private bool grounded;
 		private float distanceToGround;
+		private bool grounded;
 
 		#endregion
 
@@ -56,7 +56,7 @@ namespace Utilities.Inputs.Samples
 				float horizontal = InputsManager.InputValue("Horizontal");
 				float jump;
 
-				if (InputsManager.InputDown("Jump"))
+				if (InputsManager.InputPress("Jump"))
 					jump = 1f;
 				else
 					jump = 0f;

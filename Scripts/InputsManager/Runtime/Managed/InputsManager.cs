@@ -269,6 +269,13 @@ namespace Utilities.Inputs
 				return Resources.Load(DataAssetPath);
 			}
 		}
+		public static bool Started
+		{
+			get
+			{
+				return started;
+			}
+		}
 		public static int Count
 		{
 			get
@@ -650,7 +657,7 @@ namespace Utilities.Inputs
 		{
 			CheckStarted();
 
-			return keyboard != null && keyboard.anyKey.isPressed || !ignoreMouse && InputMouseAnyButtonPress() || gamepads != null && gamepads.Any(gamepad => gamepad.allControls.Any(control => control is ButtonControl button && !button.synthetic && button.isPressed));
+			return keyboard != null && keyboard.added && keyboard.anyKey.isPressed || !ignoreMouse && InputMouseAnyButtonPress() || gamepads != null && gamepads.Any(gamepad => gamepad.added && gamepad.allControls.Any(control => control is ButtonControl button && !button.synthetic && button.isPressed));
 		}
 
 		/// <summary>
@@ -663,7 +670,7 @@ namespace Utilities.Inputs
 		{
 			CheckStarted();
 
-			return keyboard != null && keyboard.anyKey.wasPressedThisFrame || !ignoreMouse && InputMouseAnyButtonDown() || gamepads != null && gamepads.Any(gamepad => gamepad.allControls.Any(control => control is ButtonControl button && !button.synthetic && button.wasPressedThisFrame));
+			return keyboard != null && keyboard.added && keyboard.anyKey.wasPressedThisFrame || !ignoreMouse && InputMouseAnyButtonDown() || gamepads != null && gamepads.Any(gamepad => gamepad.added && gamepad.allControls.Any(control => control is ButtonControl button && !button.synthetic && button.wasPressedThisFrame));
 		}
 
 		/// <summary>
@@ -676,7 +683,7 @@ namespace Utilities.Inputs
 		{
 			CheckStarted();
 
-			return keyboard != null && keyboard.anyKey.wasReleasedThisFrame || !ignoreMouse && InputMouseAnyButtonUp() || gamepads != null && gamepads.Any(gamepad => gamepad.allControls.Any(control => control is ButtonControl button && !button.synthetic && button.wasReleasedThisFrame));
+			return keyboard != null && keyboard.added && keyboard.anyKey.wasReleasedThisFrame || !ignoreMouse && InputMouseAnyButtonUp() || gamepads != null && gamepads.Any(gamepad => gamepad.added && gamepad.allControls.Any(control => control is ButtonControl button && !button.synthetic && button.wasReleasedThisFrame));
 		}
 
 		/// <summary>
@@ -2574,7 +2581,7 @@ namespace Utilities.Inputs
 		{
 			CheckStarted();
 
-			return InputUtilities.KeyToKeyControl(key).isPressed;
+			return InputUtilities.KeyToKeyControl(key)?.isPressed ?? false;
 		}
 
 		/// <summary>
@@ -2587,7 +2594,7 @@ namespace Utilities.Inputs
 		{
 			CheckStarted();
 
-			return InputUtilities.KeyToKeyControl(key).wasPressedThisFrame;
+			return InputUtilities.KeyToKeyControl(key)?.wasPressedThisFrame ?? false;
 		}
 
 		/// <summary>
@@ -2600,7 +2607,7 @@ namespace Utilities.Inputs
 		{
 			CheckStarted();
 
-			return InputUtilities.KeyToKeyControl(key).wasReleasedThisFrame;
+			return InputUtilities.KeyToKeyControl(key)?.wasReleasedThisFrame ?? false;
 		}
 
 		/// <summary>
@@ -2970,7 +2977,11 @@ namespace Utilities.Inputs
 			LoadData();
 
 			if (inputs == null || inputs.Length < 1)
+			{
+				Debug.LogError("The Inputs Manager has not been initialized. Please check the Inputs Manager settings for more information.");
+				
 				return;
+			}
 
 			if (!inputsAccess.IsCreated)
 				inputsAccess = new NativeArray<InputAccess>(inputs.Length, Allocator.Persistent);
@@ -3013,6 +3024,8 @@ namespace Utilities.Inputs
 		{
 			if (!Application.isPlaying)
 				throw new Exception("The `Update` method can only be called during Play mode.");
+			else if (inputs == null || inputs.Length < 1)
+				return;
 
 			CheckStarted();
 
@@ -3020,6 +3033,8 @@ namespace Utilities.Inputs
 
 			if (gamepadsCount != newGamepadsCount)
 			{
+				Start();
+
 				lastDefaultInputSource = newGamepadsCount > 0 ? inputSourcePriority : InputSource.Keyboard;
 				gamepadsCount = newGamepadsCount;
 				gamepads = Gamepads;

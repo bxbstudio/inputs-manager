@@ -405,9 +405,9 @@ namespace Utilities.Inputs.Components
 		/// </summary>
 		/// <param name="input">The input to update the controls for, containing references to keyboard controls.</param>
 		/// <returns>The updated InputSourceAccess instance with refreshed keyboard input states.</returns>
-		public InputSourceAccess UpdateControls(Input input)
+		internal InputSourceAccess UpdateControls(Input input)
 		{
-			if (!bindable || source != InputSource.Keyboard)
+			if (!bindable || source != InputSource.Keyboard || input == null)
 				return this;
 
 			if (mainBindable)
@@ -454,14 +454,14 @@ namespace Utilities.Inputs.Components
 		/// <param name="input">The input to update the controls for, containing references to gamepad controls.</param>
 		/// <param name="gamepadIndex">The index of the gamepad to update the controls for, allowing multi-controller support.</param>
 		/// <returns>The updated InputSourceAccess instance with refreshed gamepad input states and values.</returns>
-		public InputSourceAccess UpdateControls(Input input, int gamepadIndex)
+		internal InputSourceAccess UpdateControls(Input input, int gamepadIndex)
 		{
-			if (!bindable || source != InputSource.Gamepad)
+			if (!bindable || source != InputSource.Gamepad || input == null || gamepadIndex < 0)
 				return this;
 
 			if (mainBindable)
 			{
-				if (positiveMainBindable)
+				if (positiveMainBindable && input.gamepadPositiveMainControls != null && gamepadIndex < input.gamepadPositiveMainControls.Length)
 				{
 					ButtonControl buttonControl = input.gamepadPositiveMainControls[gamepadIndex];
 
@@ -474,7 +474,7 @@ namespace Utilities.Inputs.Components
 					}
 				}
 
-				if (negativeMainBindable)
+				if (negativeMainBindable && input.gamepadNegativeMainControls != null && gamepadIndex < input.gamepadNegativeMainControls.Length)
 				{
 					ButtonControl buttonControl = input.gamepadNegativeMainControls[gamepadIndex];
 
@@ -490,7 +490,7 @@ namespace Utilities.Inputs.Components
 
 			if (altBindable)
 			{
-				if (positiveAltBindable)
+				if (positiveAltBindable && input.gamepadPositiveAltControls != null && gamepadIndex < input.gamepadPositiveAltControls.Length)
 				{
 					ButtonControl buttonControl = input.gamepadPositiveAltControls[gamepadIndex];
 
@@ -503,7 +503,7 @@ namespace Utilities.Inputs.Components
 					}
 				}
 
-				if (negativeAltBindable)
+				if (negativeAltBindable && input.gamepadNegativeAltControls != null && gamepadIndex < input.gamepadNegativeAltControls.Length)
 				{
 					ButtonControl buttonControl = input.gamepadNegativeAltControls[gamepadIndex];
 
