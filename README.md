@@ -1,7 +1,7 @@
 # Inputs-Manager
 A comprehensive, high-performance input management system for Unity built on the New Input System.
 
-**Version:** 1.1.16
+**Version:** 1.1.17
 
 ## Features
 - **High Performance**: Leverages C# Jobs System & Burst compilation for optimal speed
@@ -73,6 +73,10 @@ Requires Git on your machine ([Unity Documentation](https://docs.unity3d.com/Man
 - Input System: 1.7.0 or newer
 
 ## Release Notes
+- 1.1.17
+	- Refactor input export and import logic
+	- Optimized count checks
+	- Fixed data loading after closing the Input Manager window
 - 1.1.16
 	- Added `Started` property
 	- Added data load error check

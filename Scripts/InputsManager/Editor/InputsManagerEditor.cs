@@ -1296,7 +1296,7 @@ namespace Utilities.Inputs.Editor
 					EditorGUILayout.Space();
 					EditorGUILayout.EndVertical();
 
-					int exportInputsCount = exportInputs.Where(value => value == true).Count();
+					int exportInputsCount = exportInputs.Count(value => value == true);
 
 					EditorGUI.BeginDisabledGroup(exportPath.IsNullOrEmpty() || exportInputsCount == 0);
 
@@ -1477,7 +1477,7 @@ namespace Utilities.Inputs.Editor
 					}
 
 					EditorGUILayout.EndVertical();
-					EditorGUI.BeginDisabledGroup(importInputsSelection.Where(boolean => boolean == true).Count() == 0);
+					EditorGUI.BeginDisabledGroup(!importInputsSelection.Any(boolean => boolean == true));
 
 					if (GUILayout.Button("Import"))
 					{
@@ -1850,6 +1850,7 @@ namespace Utilities.Inputs.Editor
 			}
 
 			InputsManager.ForceDataChange();
+			InputsManager.LoadData();
 		}
 
 		#endregion
