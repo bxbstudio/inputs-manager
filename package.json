@@ -6,7 +6,6 @@
   "unity": "2020.3",
   "unityRelease": "17f1",
   "dependencies": {
-    "com.unity.collections": "1.2.4",
     "com.unity.inputsystem": "1.7.0",
     "dev.bxbstudio.utilities": "1.1.10"
   },
