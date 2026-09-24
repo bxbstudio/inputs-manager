@@ -2983,8 +2983,16 @@ namespace Utilities.Inputs
 				return;
 			}
 
+			// Native arrays must match the current inputs/gamepads counts. Writing past their length is not
+			// caught in player builds (no safety checks) and silently corrupts the native heap.
+			if (inputsAccess.IsCreated && inputsAccess.Length != inputs.Length)
+				inputsAccess.Dispose();
+
 			if (!inputsAccess.IsCreated)
 				inputsAccess = new NativeArray<InputAccess>(inputs.Length, Allocator.Persistent);
+
+			if (inputsKeyboardAccess.IsCreated && inputsKeyboardAccess.Length != inputs.Length)
+				inputsKeyboardAccess.Dispose();
 
 			if (!inputsKeyboardAccess.IsCreated)
 				inputsKeyboardAccess = new NativeArray<InputSourceAccess>(inputs.Length, Allocator.Persistent);
@@ -2997,8 +3005,14 @@ namespace Utilities.Inputs
 							inputsGamepadAccess[i].Dispose();
 
 				inputsGamepadAccess = new NativeArray<InputSourceAccess>[inputs.Length];
+			}
 
-				for (int i = 0; i < inputs.Length; i++)
+			for (int i = 0; i < inputs.Length; i++)
+			{
+				if (inputsGamepadAccess[i].IsCreated && inputsGamepadAccess[i].Length != gamepadsCount)
+					inputsGamepadAccess[i].Dispose();
+
+				if (!inputsGamepadAccess[i].IsCreated)
 					inputsGamepadAccess[i] = new NativeArray<InputSourceAccess>(gamepadsCount, Allocator.Persistent);
 			}
 
@@ -3007,10 +3021,11 @@ namespace Utilities.Inputs
 				inputsAccess[i] = new InputAccess(inputs[i]);
 				inputsKeyboardAccess[i] = new InputSourceAccess(inputs[i], InputSource.Keyboard);
 
-				for (int j = 0; j < gamepadsCount; j++)
+				for (int j = 0; j < inputsGamepadAccess[i].Length; j++)
 					inputsGamepadAccess[i][j] = new InputSourceAccess(inputs[i], InputSource.Gamepad);
 			}
 
+			t_gamepadsCount = gamepadsCount;
 			started = true;
 		}
 		/// <summary>
@@ -3057,10 +3072,10 @@ namespace Utilities.Inputs
 					inputsAccess[i] = new InputAccess(inputs[i]);
 					inputsKeyboardAccess[i] = new InputSourceAccess(inputs[i], InputSource.Keyboard);
 
-					for (int j = 0; j < gamepadsCount; j++)
+					for (int j = 0; j < inputsGamepadAccess[i].Length; j++)
 						inputsGamepadAccess[i][j] = new InputSourceAccess(inputs[i], InputSource.Gamepad);
 				}
-				else if (gamepadsCount != t_gamepadsCount)
+				else if (gamepadsCount != t_gamepadsCount || inputsGamepadAccess[i].Length != gamepadsCount)
 				{
 					if (inputsGamepadAccess[i].IsCreated)
 						inputsGamepadAccess[i].Dispose();
@@ -3073,7 +3088,7 @@ namespace Utilities.Inputs
 
 				inputsKeyboardAccess[i] = inputsKeyboardAccess[i].UpdateControls(inputs[i]);
 
-				for (int j = 0; j < gamepadsCount; j++)
+				for (int j = 0; j < inputsGamepadAccess[i].Length; j++)
 					inputsGamepadAccess[i][j] = inputsGamepadAccess[i][j].UpdateControls(inputs[i], j);
 			}
 
