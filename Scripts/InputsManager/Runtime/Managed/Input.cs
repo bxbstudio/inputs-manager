@@ -156,91 +156,109 @@ namespace Utilities.Inputs
 		/// Indicates whether the positive main keyboard key is bindable (not set to None).
 		/// Used internally to determine if keyboard input processing is needed.
 		/// </summary>
+		[field: NonSerialized]
 		internal bool KeyboardPositiveMainBindable { get; private set; }
 		/// <summary>
 		/// Indicates whether the positive main gamepad button is bindable (not set to None).
 		/// Used internally to determine if gamepad input processing is needed.
 		/// </summary>
+		[field: NonSerialized]
 		internal bool GamepadPositiveMainBindable { get; private set; }
 		/// <summary>
 		/// Indicates whether the negative main keyboard key is bindable (not set to None).
 		/// Used internally to determine if keyboard input processing is needed for negative values.
 		/// </summary>
+		[field: NonSerialized]
 		internal bool KeyboardNegativeMainBindable { get; private set; }
 		/// <summary>
 		/// Indicates whether the negative main gamepad button is bindable (not set to None).
 		/// Used internally to determine if gamepad input processing is needed for negative values.
 		/// </summary>
+		[field: NonSerialized]
 		internal bool GamepadNegativeMainBindable { get; private set; }
 		/// <summary>
 		/// Indicates whether the positive alternative keyboard key is bindable (not set to None).
 		/// Used internally to determine if alternative keyboard input processing is needed.
 		/// </summary>
+		[field: NonSerialized]
 		internal bool KeyboardPositiveAltBindable { get; private set; }
 		/// <summary>
 		/// Indicates whether the positive alternative gamepad button is bindable (not set to None).
 		/// Used internally to determine if alternative gamepad input processing is needed.
 		/// </summary>
+		[field: NonSerialized]
 		internal bool GamepadPositiveAltBindable { get; private set; }
 		/// <summary>
 		/// Indicates whether the negative alternative keyboard key is bindable (not set to None).
 		/// Used internally to determine if alternative keyboard input processing is needed for negative values.
 		/// </summary>
+		[field: NonSerialized]
 		internal bool KeyboardNegativeAltBindable { get; private set; }
 		/// <summary>
 		/// Indicates whether the negative alternative gamepad button is bindable (not set to None).
 		/// Used internally to determine if alternative gamepad input processing is needed for negative values.
 		/// </summary>
+		[field: NonSerialized]
 		internal bool GamepadNegativeAltBindable { get; private set; }
 		/// <summary>
 		/// Indicates whether any positive keyboard key (main or alt) is bindable.
 		/// Combines KeyboardPositiveMainBindable and KeyboardPositiveAltBindable for convenience.
 		/// </summary>
+		[field: NonSerialized]
 		internal bool KeyboardPositiveBindable { get; private set; }
 		/// <summary>
 		/// Indicates whether any positive gamepad button (main or alt) is bindable.
 		/// Combines GamepadPositiveMainBindable and GamepadPositiveAltBindable for convenience.
 		/// </summary>
+		[field: NonSerialized]
 		internal bool GamepadPositiveBindable { get; private set; }
 		/// <summary>
 		/// Indicates whether any negative keyboard key (main or alt) is bindable.
 		/// Combines KeyboardNegativeMainBindable and KeyboardNegativeAltBindable for convenience.
 		/// </summary>
+		[field: NonSerialized]
 		internal bool KeyboardNegativeBindable { get; private set; }
 		/// <summary>
 		/// Indicates whether any negative gamepad button (main or alt) is bindable.
 		/// Combines GamepadNegativeMainBindable and GamepadNegativeAltBindable for convenience.
 		/// </summary>
+		[field: NonSerialized]
 		internal bool GamepadNegativeBindable { get; private set; }
 		/// <summary>
 		/// Indicates whether any main keyboard key (positive or negative) is bindable.
 		/// Combines KeyboardPositiveMainBindable and KeyboardNegativeMainBindable for convenience.
 		/// </summary>
+		[field: NonSerialized]
 		internal bool KeyboardMainBindable { get; private set; }
 		/// <summary>
 		/// Indicates whether any main gamepad button (positive or negative) is bindable.
 		/// Combines GamepadPositiveMainBindable and GamepadNegativeMainBindable for convenience.
 		/// </summary>
+		[field: NonSerialized]
 		internal bool GamepadMainBindable { get; private set; }
 		/// <summary>
 		/// Indicates whether any alternative keyboard key (positive or negative) is bindable.
 		/// Combines KeyboardPositiveAltBindable and KeyboardNegativeAltBindable for convenience.
 		/// </summary>
+		[field: NonSerialized]
 		internal bool KeyboardAltBindable { get; private set; }
 		/// <summary>
 		/// Indicates whether any alternative gamepad button (positive or negative) is bindable.
 		/// Combines GamepadPositiveAltBindable and GamepadNegativeAltBindable for convenience.
 		/// </summary>
+		[field: NonSerialized]
 		internal bool GamepadAltBindable { get; private set; }
 		/// <summary>
 		/// Indicates whether any keyboard key (main or alt, positive or negative) is bindable.
 		/// Combines KeyboardMainBindable and KeyboardAltBindable for convenience.
 		/// </summary>
+		[field: NonSerialized]
 		internal bool KeyboardBindable { get; private set; }
 		/// <summary>
 		/// Indicates whether any gamepad button (main or alt, positive or negative) is bindable.
 		/// Combines GamepadMainBindable and GamepadAltBindable for convenience.
 		/// </summary>
+		[field: NonSerialized]
 		internal bool GamepadBindable { get; private set; }
 
 		/// <summary>

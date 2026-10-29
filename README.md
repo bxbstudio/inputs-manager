@@ -1,7 +1,7 @@
 # Inputs-Manager
 A comprehensive, high-performance input management system for Unity built on the New Input System.
 
-**Version:** 1.1.18
+**Version:** 1.1.19
 
 ## Features
 - **High Performance**: Leverages C# Jobs System & Burst compilation for optimal speed
@@ -28,10 +28,11 @@ In the meantime:
 - Refer to the editor **tooltips** for contextual help with specific features
 
 ## Important Notes
-**Dependencies**: The Inputs Manager requires the [Unity CSharp Utilities](https://www.github.com/BxB-Studio/Unity-CSharp-Utilities) library to function properly.<br/>
+**Dependencies**: The Inputs Manager requires the [Unity CSharp Utilities](https://github.com/bxbstudio/unity-utilities) library to function properly.<br/>
 - **Recommended**: Use the Automatic installation method to avoid dependency issues
 - **Required Packages**: See the Dependencies section below for required Unity packages
 - **File Structure**: Do not relocate files from the `Resources` directory as this may cause internal errors
+- **Data File**: Since version 1.1.19, the Inputs Manager data file (`Resources/.../InputsManager_Data.bytes`) is stored as JSON. Data files saved by older versions are migrated automatically when the project is opened in the Unity Editor
 
 ## Installation Methods
 
@@ -42,20 +43,20 @@ Requires Git on your machine ([Unity Documentation](https://docs.unity3d.com/Man
 1. Open Unity's Package Manager (`Window > Package Manager`)
 2. Click the `+` button in the top-left corner
 3. Select `Add package from git URL`
-4. Enter: `https://github.com/BxB-Studio/Unity-CSharp-Utilities.git`
+4. Enter: `https://github.com/bxbstudio/unity-utilities.git`
 5. Click `Add`
 
 **Step 2: Install Inputs Manager**
 1. In Package Manager, click the `+` button again
 2. Select `Add package from git URL`
-3. Enter: `https://github.com/BxB-Studio/Inputs-Manager.git`
+3. Enter: `https://github.com/bxbstudio/inputs-manager.git`
 4. Click `Add`
 
 ### 2. Manual Installation
-1. Download the [Unity CSharp Utilities](https://www.github.com/BxB-Studio/Unity-CSharp-Utilities) repository
+1. Download the [Unity CSharp Utilities](https://github.com/bxbstudio/unity-utilities) repository
 2. Extract the ZIP archive
 3. Move the extracted folder to your project's `Assets` directory
-4. Download the [Inputs Manager](https://www.github.com/BxB-Studio/Inputs-Manager) repository
+4. Download the [Inputs Manager](https://github.com/bxbstudio/inputs-manager) repository
 5. Extract the ZIP archive
 6. Move the extracted folder to your project's `Assets` directory
 
@@ -68,11 +69,15 @@ Requires Git on your machine ([Unity Documentation](https://docs.unity3d.com/Man
 - Unity 2020.3.17f1 or newer
 
 ## Dependencies
-- Utilities: 1.1.8 or newer
+- Utilities: 1.1.14 or newer
 - Collections: 1.2.4 or newer
 - Input System: 1.7.0 or newer
 
 ## Release Notes
+- 1.1.19
+	- Upgraded `Utilities` package to `1.1.14`
+	- The Inputs Manager data file is now saved as JSON instead of BinaryFormatter; legacy data files are migrated automatically in the Unity Editor
+	- Excluded the internal `Input` bindable caches from data serialization
 - 1.1.18
 	- Fixed Player build crash when plugging in/out gamepads
 - 1.1.17
@@ -179,7 +184,7 @@ Requires Git on your machine ([Unity Documentation](https://docs.unity3d.com/Man
 	- JSON preset importer
 
 ## Contributing
-Please read the [contributing guidelines](https://github.com/BxB-Studio/Inputs-Manager/blob/master/CONTRIBUTING.md) for this repository.
+Please read the [contributing guidelines](https://github.com/bxbstudio/inputs-manager/blob/master/CONTRIBUTING.md) for this repository.
 
 ## License
-This project is under the MIT license. [Read more about it](https://github.com/BxB-Studio/Inputs-Manager/blob/master/LICENSE.md).
+This project is under the MIT license. [Read more about it](https://github.com/bxbstudio/inputs-manager/blob/master/LICENSE.md).
